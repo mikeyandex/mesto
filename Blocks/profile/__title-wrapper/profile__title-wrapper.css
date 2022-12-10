@@ -6,7 +6,7 @@
 
 @media screen and (max-width: 1023.9px) {
   .profile__title-wrapper {
-    width: calc(max-content + 1.5rem);
+    width: max-content;
     margin: 0 auto;
     position: relative;
  }
