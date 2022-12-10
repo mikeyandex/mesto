@@ -1,0 +1,11 @@
+.element__white-field {
+  width: 100%;
+  min-height: 4.9375rem;
+  background-color: #ffffff;
+  border-bottom-right-radius: .625rem;
+  border-bottom-left-radius: .625rem;
+  display: grid;
+  column-gap: 2.475rem;
+  grid-template-columns: 1fr 2.65rem;
+  align-items: center;
+}

@@ -1,0 +1,16 @@
+.foorer__copyright {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21.78px;
+  color: #545454;
+  margin: 0;
+  padding: 0;
+}
+@media screen and (max-width: 767.9px) {
+  .foorer__copyright {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+   

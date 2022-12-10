@@ -1,0 +1,18 @@
+.profile__name {
+  width: fit-content;
+  height: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: repeat(2, 3.75rem);
+  column-gap: 1.9rem;
+  position: relative;
+}
+
+@media screen and (max-width: 1023.9px) {
+  .profile__name {
+    width: 100%;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+  }
+}
