@@ -6,17 +6,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./pages/index.css" rel="stylesheet">
+  <link rel="icon" href="https://mikeyandex.github.io/mesto/favicon.ico" type="image/x-icon">
 </head>
 
 <body class="page">
   <div class="popup">
-    <form class="popup__container">
-      <button class="popup__button-close"></button>
+    <div class="popup__container">
+      <button class="popup__button-close" type="reset"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
-      <input class="popup__form-input">
-      <input class="popup__form-input">
-      <button class="popup__button-save">Сохранить</button>
-    </form>
+      <form>
+        <input class="popup__form-input">
+        <input class="popup__form-input">
+        <button class="popup__button-save" type="button">Сохранить</button>
+      </form>
+    </div>
   </div>
 
   <header class="header">
@@ -25,56 +28,57 @@
   <main class="main-wrapper">
     <section class="profile">
       <div class="profile__name">
-        <img class="profile__cousteau" src="./images/cousteau.jpg" alt="Жак-Ив Кусто">
+        <img class="profile__avatar" src="./images/cousteau.jpg" alt="Жак-Ив Кусто">
         <div class="profile__title-wrapper">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button"></button>
+          <button class="profile__edit-button" type="button"></button>
         </div>
         <p class="profile__subtitle">Исследователь океана</p>
       </div>
-      <button class="profile__add-button"></button>
+      <button class="profile__add-button" type="button"></button>
     </section>
     <section class="elements">
       <div class="element">
         <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Город Карачаевск">
         <div class="element__white-field">
           <p class="element__image-title">Карачаевск</p>
-          <img class="element__like" src="./images/dis-like.svg" alt="Лайк">
+          <button class="element__like" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img class="element__image-mesto" src="./images/kirill-pershin-1404681-unsplash-1.png" alt="Гора Эльбрус">
         <div class="element__white-field">
           <p class="element__image-title">Гора Эльбрус</p>
-          <img class="element__like" src="./images/dis-like.svg" alt="Лайк">
+          <button class="element__like" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img class="element__image-mesto" src="./images/kirill-pershin-1556355-unsplash-1.png" alt="Поселок Домбай">
         <div class="element__white-field">
           <p class="element__image-title">Домбай</p>
-          <img class="element__like" src="./images/dis-like.svg" alt="Лайк">
+          <button class="element__like" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img class="element__image-mesto" src="./images/kirill-pershin-1404681-unsplash-1.png" alt="Гора Эльбрус">
         <div class="element__white-field">
           <p class="element__image-title">Гора Эльбрус</p>
-          <img class="element__like" src="./images/dis-like.svg" alt="Лайк">
+          <button class="element__like" type="button"></button>
         </div>
       </div>
       <div class="element">
         <img class="element__image-mesto" src="./images/kirill-pershin-1556355-unsplash-1.png" alt="Поселок Домбай">
         <div class="element__white-field">
           <p class="element__image-title">Домбай</p>
-          <img class="element__like" src="./images/dis-like.svg" alt="Лайк">
+          <button class="element__like" type="button"></button>
         </div>
       </div>
       <div class="element">
-        <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Карачаево-Черкессия">
+        <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png"
+          alt="Карачаево-Черкессия">
         <div class="element__white-field">
           <p class="element__image-title">Карачаево-Черкесия</p>
-          <img class="element__like" src="./images/dis-like.svg" alt="Лайк">
+          <button class="element__like" type="button"></button>
         </div>
       </div>
     </section>

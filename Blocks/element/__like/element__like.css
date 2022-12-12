@@ -1,6 +1,13 @@
 .element__like {
   width: 1.375rem;
+  height: 1.375rem;
   object-fit: cover;
+  background-image: url('../../../images/like-no.svg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: transparent;
+  object-fit: cover;
+  border: 0;
 }
 
 

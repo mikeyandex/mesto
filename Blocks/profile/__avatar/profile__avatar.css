@@ -1,4 +1,4 @@
-.profile__cousteau {
+.profile__avatar {
   width: 7.5rem;
   border-radius: 50%;
   box-sizing: border-box;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 1023.9px) {
-  .profile__cousteau {
+  .profile__avatar {
     justify-self: center;
     align-self: stretch;
   }

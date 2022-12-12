@@ -1,13 +1,16 @@
 .profile__edit-button {
 width: 1.5rem;
 height: 1.5rem;
-background-image: url('../../../images/pen.png');
+background-image: url('../../../images/pen.svg');
 margin-top: 2.45rem;
 background-repeat: no-repeat;
 background-position: center center;
 border: solid 1px #ffffff;
 box-sizing: border-box;
 background-color: #000000;
+position: absolute;
+right: 0px;
+top: 0px;
 }
 
 
@@ -20,6 +23,9 @@ background-color: #000000;
 @media screen and (max-width: 1023.9px) {
   .profile__edit-button {
 margin-left: 1.125rem;
+position: absolute;
+right: -38px;
+top: 0px;
   }
 }
 
@@ -27,7 +33,6 @@ margin-left: 1.125rem;
   .profile__edit-button {
     width: 1.125rem;
     height: 1.125rem;
-    position: absolute;
     right: -28px;
     top: -8px;
   }

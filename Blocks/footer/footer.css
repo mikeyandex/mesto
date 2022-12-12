@@ -1,6 +1,6 @@
 .footer {
   width: calc(100% - 25rem);
-  padding: 4.1875rem 0 3.75rem 0;
+  padding: 3.2rem 0 3.75rem 0;
   box-sizing: border-box;
   margin: 0 auto;
 }
@@ -8,7 +8,7 @@
 @media screen and (max-width: 767.9px) {
   .footer {
     width: calc(100% - 2*1.1875rem);
-    padding: 3rem 0 2.25rem 0;
+    padding: 3.1rem 0 2.25rem 0;
     font-size: 14px;
   }
 }
