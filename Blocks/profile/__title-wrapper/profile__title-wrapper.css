@@ -1,9 +1,9 @@
 .profile__title-wrapper {
-  width: 21rem;
-  height: 124%;
+  max-width: 21rem;
+  height: fit-content;
   display: grid;
-  grid-template-columns: 1fr 1.5rem;
-  grid-template-rows: max-content min-content;
+  grid-template-columns: 1fr min-content;
+  grid-template-rows: min-content min-content;
   column-gap: 1.125rem;
 }
 
@@ -17,7 +17,6 @@
 
 @media screen and (max-width: 767.9px) {
   .profile__title-wrapper {
-    margin: 0 auto;
     grid-template-columns: 1fr 1.125rem;
     column-gap: 0.625rem;
     padding: 1px 0 0 26px;

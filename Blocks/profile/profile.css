@@ -1,6 +1,6 @@
 .profile {
   width: 100%;
-  min-height: 8.0625rem;
+  height: fit-content;
   margin: 0;
   padding-bottom: 2.8rem;
   padding-top: 2.4rem;

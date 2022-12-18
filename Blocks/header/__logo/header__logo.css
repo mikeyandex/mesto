@@ -2,6 +2,7 @@
   margin: 0;
   padding-bottom: 2.5625rem;
   max-width: 8.875rem;
+  height: fit-content;
   box-sizing: border-box;
 }
 

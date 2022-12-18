@@ -5,16 +5,18 @@ background-image: url('../../../images/pen.svg');
 margin-top: 2.3rem;
 background-repeat: no-repeat;
 background-position: center center;
+background-color: transparent;
+background-size: auto auto;
 border: solid 1px #ffffff;
 box-sizing: border-box;
 background-color: #000000;
+cursor: pointer;
+transition: opacity .5s;
 }
 
 
 .profile__edit-button:hover {
   opacity: .6;
-  cursor: pointer;
-  transition: opacity .5s;
 }
 
 @media screen and (max-width: 1023.9px) {
