@@ -2,14 +2,13 @@
 width: 1.5rem;
 height: 1.5rem;
 background-image: url('../../../images/pen.svg');
-margin-top: 2.3rem;
+margin: 2.3rem 0 0 0;
 background-repeat: no-repeat;
 background-position: center center;
 background-color: transparent;
-background-size: auto auto;
+background-size: cover cover;
 border: solid 1px #ffffff;
 box-sizing: border-box;
-background-color: #000000;
 cursor: pointer;
 transition: opacity .5s;
 }
@@ -29,7 +28,7 @@ margin-left: 1.125rem;
   .profile__edit-button {
     width: 1.125rem;
     height: 1.125rem;
-    margin-top: 2rem;
-    margin-left: 0;
+    margin: 2rem 0 0 0;
+
   }
 }

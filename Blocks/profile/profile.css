@@ -2,7 +2,7 @@
   width: 100%;
   height: fit-content;
   margin: 0;
-  padding-bottom: 2.8rem;
+  padding-bottom: 3.2rem;
   padding-top: 2.4rem;
   display: flex;
   justify-content: space-between;
@@ -11,7 +11,7 @@
 @media screen and (max-width: 1023.9px) {
   .profile {
     flex-direction: column;
-    padding-top: 2.7rem;
+    padding-top: 2.6rem;
     padding-bottom: 2.2rem;
   }
 }
