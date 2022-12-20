@@ -1,16 +1,16 @@
 .profile__edit-button {
-width: 1.5rem;
-height: 1.5rem;
-background-image: url('../../../images/pen.svg');
-margin: 2.3rem 0 0 0;
-background-repeat: no-repeat;
-background-position: center center;
-background-color: transparent;
-background-size: cover;
-border: solid 1px #ffffff;
-box-sizing: border-box;
-cursor: pointer;
-transition: opacity .5s;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-image: url('../../../images/pen.svg');
+  margin: 2.3rem 0 0 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-color: transparent;
+  background-size: 10px 10px;
+  border: solid 1px #ffffff;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: opacity .5s;
 }
 
 
@@ -20,7 +20,7 @@ transition: opacity .5s;
 
 @media screen and (max-width: 1023.9px) {
   .profile__edit-button {
-margin-left: 1.125rem;
+    margin-left: 1.125rem;
   }
 }
 
@@ -29,6 +29,6 @@ margin-left: 1.125rem;
     width: 1.125rem;
     height: 1.125rem;
     margin: 2rem 0 0 0;
-
+    background-size: 7.5px 7.5px;
   }
 }

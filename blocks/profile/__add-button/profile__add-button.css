@@ -7,7 +7,7 @@
   background-image: url('../../../images/add.svg');
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: cover;
+  background-size: 22px 22px;
   border-radius: 2px;
   background-color: transparent;
   cursor: pointer;
@@ -22,5 +22,6 @@
   .profile__add-button {
 width: 100%;
 margin-top: 2rem;
+background-size: 16px 16px;
   }
 }
