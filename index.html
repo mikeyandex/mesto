@@ -10,15 +10,33 @@
 </head>
 
 <body class="page">
-  <div class="popup">
+  <div class="popup popup_edit">
     <div class="popup__container">
-      <button class="popup__button-close" type="button"></button>
+      <button class="popup__button-close popup__button-close_type_edit" type="button"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <form name="form-mesto" class="popup__form-mesto">
         <input class="popup__form-input popup__form-input_type_name" name="name" type="text">
         <input class="popup__form-input popup__form-input_type_job" name="job" type="text">
         <button class="popup__button-save" type="submit">Сохранить</button>
       </form>
+    </div>
+  </div>
+  <div class="popup popup_add">
+    <div class="popup__container">
+      <button class="popup__button-close popup__button-close_type_add" type="button"></button>
+      <h3 class="popup__title">Новое место</h3>
+      <form name="card-mesto" class="popup__card-mesto">
+        <input class="popup__form-input popup__form-input_type_title" name="name" type="text">
+        <input class="popup__form-input popup__form-input_type_link" name="job" type="text">
+        <button class="popup__button-save" type="submit">Создать</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_photo">
+    <div class="popup__container popup__container-preview">
+      <button class="popup__button-close popup__button-close_type_photo" type="button"></button>
+      <image class="element__image-mesto element__image-mesto_image-preview"></image>
+      <p class = "popup__image-view"></p>
     </div>
   </div>
 
@@ -39,54 +57,22 @@
       <button class="profile__add-button" type="button"></button>
     </section>
     <section class="elements">
-      <div class="element">
-        <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Город Карачаевск">
-        <div class="element__white-field">
-          <h2 class="element__image-title">Карачаевск</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image-mesto" src="./images/kirill-pershin-1404681-unsplash-1.png" alt="Гора Эльбрус">
-        <div class="element__white-field">
-          <h2 class="element__image-title">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image-mesto" src="./images/kirill-pershin-1556355-unsplash-1.png" alt="Поселок Домбай">
-        <div class="element__white-field">
-          <h2 class="element__image-title">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image-mesto" src="./images/kirill-pershin-1404681-unsplash-1.png" alt="Гора Эльбрус">
-        <div class="element__white-field">
-          <h2 class="element__image-title">Гора Эльбрус</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image-mesto" src="./images/kirill-pershin-1556355-unsplash-1.png" alt="Поселок Домбай">
-        <div class="element__white-field">
-          <h2 class="element__image-title">Домбай</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
-      <div class="element">
-        <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png"
-          alt="Карачаево-Черкессия">
-        <div class="element__white-field">
-          <h2 class="element__image-title">Карачаево-Черкесия</h2>
-          <button class="element__like" type="button"></button>
-        </div>
-      </div>
+      
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
   </footer>
+  <template class="clone-element">
+    <div class="element">
+      <button class="element__trash" type="button"></button>
+      <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Город Карачаевск">
+      <div class="element__white-field">
+        <h2 class="element__image-title">Карачаевск</h2>
+        <button class="element__like" type="button"></button>
+      </div>
+    </div>
+  </template>
   <script src="./scripts/index.js"></script>
 </body>
 
