@@ -78,7 +78,7 @@ function addLikeListener(inputCard) {
 };
 
 function addPhotoListener(inputCard) {
-  document.querySelector('.element__image-mesto_image-preview').src = link;
+  document.querySelector('.element__image-preview').src = link;
   document.querySelector('.popup__image-view').textContent = title;
   photo.addEventListener('click', () => { newCard(title, link); openPopup(popupPhoto); });
 
@@ -95,7 +95,7 @@ function newCard(title, link) {
   addLikeListener(inputCard);
 
   const photo = inputCard.querySelector('.element__image-mesto');
-  document.querySelector('.element__image-mesto_image-preview').src = link;
+  document.querySelector('.element__image-preview').src = link;
   document.querySelector('.popup__image-view').textContent = title;
   photo.addEventListener('click', () => { newCard(title, link); openPopup(popupPhoto); });
 
