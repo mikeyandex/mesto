@@ -17,7 +17,7 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image-mesto/element__image-mesto.css);
-@import url(../blocks/element/__image-mesto/__image-preview/element__image-preview.css);
+@import url(../blocks/element/__image-preview/element__image-preview.css);
 @import url(../blocks/element/__white-field/element__white-field.css);
 @import url(../blocks/element/__image-title/element__image-title.css);
 @import url(../blocks/element/__like/element__like.css);
