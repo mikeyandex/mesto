@@ -1,9 +1,10 @@
 .popup__container-preview {
   max-width: 75vw;
-  width: auto;
+  width:fit-content;
   max-height: 75vw;
+  height: fit-content;
   background: none;
-  box-shadow: 0;
+  box-shadow:none;
   border-radius: 0;
   padding: 0;
 }

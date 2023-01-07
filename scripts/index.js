@@ -56,10 +56,33 @@ const initialCards = [
 ];
 
 //Вывожу первые 6 карточек
-initialCards.forEach((item) => {
+initialCards.reverse().forEach((item) => {
   const card = newCard(item.name, item.link);
-  tableElements.append(card);
+  enterCard(card);
 });
+
+function addRemoveListener(inputCard) {
+  const deleteButton = inputCard.querySelector('.element__trash');
+  const deleteCard = () => {
+    inputCard.remove();
+  };
+  deleteButton.addEventListener('click', deleteCard);
+};
+
+function addLikeListener(inputCard) {
+  const likeButton = inputCard.querySelector('.element__like');
+  const likeCard = () => {
+    likeButton.classList.toggle('element__like_added');
+  };
+  likeButton.addEventListener('click', likeCard);
+};
+
+function addPhotoListener(inputCard) {
+  document.querySelector('.element__image-mesto_image-preview').src = link;
+  document.querySelector('.popup__image-view').textContent = title;
+  photo.addEventListener('click', () => { newCard(title, link); openPopup(popupPhoto); });
+
+}
 
 //Создаю новую карточку
 function newCard(title, link) {
@@ -67,17 +90,9 @@ function newCard(title, link) {
   inputCard.querySelector('.element__image-mesto').src = link;
   inputCard.querySelector('.element__image-title').textContent = title;
 
-  const deleteButton = inputCard.querySelector('.element__trash');
-  const deleteCard = () => {
-    inputCard.remove();
-  };
-  deleteButton.addEventListener('click', deleteCard);
+  addRemoveListener(inputCard);
 
-  const likeButton = inputCard.querySelector('.element__like');
-  const likeCard = () => {
-    likeButton.classList.toggle('element__like_added');
-  };
-  likeButton.addEventListener('click', likeCard);
+  addLikeListener(inputCard);
 
   const photo = inputCard.querySelector('.element__image-mesto');
   document.querySelector('.element__image-mesto_image-preview').src = link;
@@ -106,6 +121,9 @@ function openPopup(popupName) {
 function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
 }
+function enterCard(card) {
+  tableElements.prepend(card);
+};
 
 
 //Открытие попапа редактирования и карточки
@@ -138,7 +156,7 @@ addCard = document.querySelector('.popup__card-mesto');
 
 function addCardSubmit(evt) {
   evt.preventDefault();
-  tableElements.prepend(newCard(titleInput.value, linkInput.value));
+  enterCard(newCard(titleInput.value, linkInput.value));
   closePopup(popupAdd);
 }
 
