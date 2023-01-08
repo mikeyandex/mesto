@@ -26,6 +26,9 @@ const linkInput = document.querySelector('.popup__form-input_type_link');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
+//Форма добавления карточки
+const formAdd = document.querySelector('.popup__card-mesto');
+
 
 //6 'карточек' при загрузке страницы
 const initialCards = [
@@ -61,6 +64,7 @@ initialCards.reverse().forEach((item) => {
   enterCard(card);
 });
 
+//Удаление карточки
 function addRemoveListener(inputCard) {
   const deleteButton = inputCard.querySelector('.element__trash');
   const deleteCard = () => {
@@ -69,6 +73,7 @@ function addRemoveListener(inputCard) {
   deleteButton.addEventListener('click', deleteCard);
 };
 
+//Лайк
 function addLikeListener(inputCard) {
   const likeButton = inputCard.querySelector('.element__like');
   const likeCard = () => {
@@ -77,12 +82,6 @@ function addLikeListener(inputCard) {
   likeButton.addEventListener('click', likeCard);
 };
 
-function addPhotoListener(inputCard) {
-  document.querySelector('.element__image-preview').src = link;
-  document.querySelector('.popup__image-view').textContent = title;
-  photo.addEventListener('click', () => { newCard(title, link); openPopup(popupPhoto); });
-
-}
 
 //Создаю новую карточку
 function newCard(title, link) {
@@ -95,7 +94,9 @@ function newCard(title, link) {
   addLikeListener(inputCard);
 
   const photo = inputCard.querySelector('.element__image-mesto');
+
   document.querySelector('.element__image-preview').src = link;
+  document.querySelector('.element__image-preview').alt = title;
   document.querySelector('.popup__image-view').textContent = title;
   photo.addEventListener('click', () => { newCard(title, link); openPopup(popupPhoto); });
 
@@ -137,6 +138,7 @@ closeAddButton.addEventListener('click', () => { closePopup(popupAdd); });
 closePhotoButton.addEventListener('click', () => { closePopup(popupPhoto); });
 
 
+
 /*Отправка формы*/
 
 formElement = document.querySelector('.popup__form-mesto');
@@ -158,6 +160,7 @@ function addCardSubmit(evt) {
   evt.preventDefault();
   enterCard(newCard(titleInput.value, linkInput.value));
   closePopup(popupAdd);
+  formAdd.reset();
 }
 
 addCard.addEventListener('submit', addCardSubmit);
