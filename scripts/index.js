@@ -95,8 +95,8 @@ function newCard(title, link) {
 
   const photo = inputCard.querySelector('.element__image-mesto');
 
-  document.querySelector('.element__image-view').src = link;
-  document.querySelector('.element__image-view').alt = title;
+  document.querySelector('.popup__image-preview').src = link;
+  document.querySelector('.popup__image-preview').alt = title;
   document.querySelector('.popup__image-view').textContent = title;
   photo.addEventListener('click', () => { newCard(title, link); openPopup(popupPhoto); });
 
