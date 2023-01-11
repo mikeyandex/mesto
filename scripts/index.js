@@ -5,6 +5,7 @@ const closeButtons = document.querySelectorAll('.popup__close');
 
 //Просмотр карточки
 const cardPreview = document.querySelector('.popup__image-preview');
+const cardPreviewTitle = document.querySelector('.popup__image-view');
 
 //Контейнер для карточек
 const tableElements = document.querySelector('.elements');//Контейнер для карточек
@@ -29,8 +30,8 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 
 //Формы
-const cardForm = document.querySelector('.popup__card-mesto');
-const profileForm = document.querySelector('.popup__form-mesto');
+const profileForm = document.forms['profile-form'];
+const cardForm = document.forms['card-form'];
 
 
 //6 'карточек' при загрузке страницы
@@ -100,7 +101,7 @@ function createCard(title, link) {
   cardImage.addEventListener('click', () => {
     cardPreview.src = link;
     cardPreview.alt = title;
-    document.querySelector('.popup__image-view').textContent = title;
+    cardPreviewTitle.textContent = title;
     openPopup(popupPhoto);
   });
   return inputCard;
@@ -139,22 +140,22 @@ closeButtons.forEach((button) => {
 
 /*Отправка формы профиля*/
 
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = jobInput.value;
   closePopup(popupEdit)
 }
 
-profileForm.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 /*Отправка формы карточки*/
 
-function handleCardSubmit(evt) {
+function handleCardFormSubmit(evt) {
   evt.preventDefault();
   prependCard(createCard(titleInput.value, linkInput.value));
   closePopup(popupAdd);
   cardForm.reset();
 }
 
-cardForm.addEventListener('submit', handleCardSubmit);
+cardForm.addEventListener('submit', handleCardFormSubmit);
