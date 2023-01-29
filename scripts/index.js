@@ -109,11 +109,24 @@ function createCard(title, link) {
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+
+
+
+  document.addEventListener('keydown', function(event) {
+    if (event.code == 'Escape') {
+      closePopup(popup)
+    }
+  });
 }
 
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+    document.addEventListener('keydown', function(event) {
+    if (event.code == 'Escape') {
+      closePopup(popup)
+    }
+  });
 }
 
 function prependCard(card) {
@@ -121,14 +134,16 @@ function prependCard(card) {
 };
 
 
-//Открытие попапа редактирования и карточки
+//Открытие попапа редактирования
 editButton.addEventListener('click', () => {
   openPopup(popupEdit);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
 });
 
-addButton.addEventListener('click', () => { openPopup(popupAdd); });
+addButton.addEventListener('click', () => {
+  openPopup(popupAdd);
+});
 
 
 //Закрытие  попапов
