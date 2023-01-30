@@ -105,28 +105,48 @@ function createCard(title, link) {
     openPopup(popupPhoto);
   });
   return inputCard;
-};
 
+
+
+};
 function openPopup(popup) {
   popup.classList.add('popup_opened');
 
+  //Закрытие попапа кликом по оверлею
+  popup.addEventListener('click', function (event) {
+    if (event.target.classList.contains('popup_add')) {
+      closePopup(popup);
+    }
+    else
+      if (event.target.classList.contains('popup_edit')) {
+        closePopup(popup);
+      }
+      else
+        if (event.target.classList.contains('popup_photo')) {
+          closePopup(popup);
+        }
+  })
 
-
-  document.addEventListener('keydown', function(event) {
+  //вешаю слушатель на Escape и закрываю попап по нажатию на Escape
+  function clickEscape(event) {
     if (event.code == 'Escape') {
       closePopup(popup)
     }
-  });
+  }
+  document.addEventListener('keydown', clickEscape);
 }
 
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-    document.addEventListener('keydown', function(event) {
+
+  //Удаляю слушатель с Escape
+  function clickEscape(event) {
     if (event.code == 'Escape') {
       closePopup(popup)
     }
-  });
+  }
+  document.removeEventListener('keydown', clickEscape);
 }
 
 function prependCard(card) {
