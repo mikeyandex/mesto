@@ -1,96 +1,98 @@
 <!DOCTYPE html>
 <html lang="ru">
 
-  <head>
-    <title>Место</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./pages/index.css" rel="stylesheet">
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    </head>
+<head>
+  <title>Место</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="./pages/index.css" rel="stylesheet">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
 
-    <body class="page">
+<body class="page">
 
-      <div class="popup popup_edit">
-        <div class="popup__container">
-          <button class="popup__close" type="button"></button>
-          <h3 class="popup__title">Редактировать профиль</h3>
-          <form name="profile-form" class="form popup__form-mesto" novalidate>
-            <div class="popup__field">
-              <input class="popup__form-input popup__form-input_type_name" id="name-input" name="name" type="text"
-                minlength="2" maxlength="40" required>
-              <span class="name-input-error popup__input-error"></span>
-            </div>
-            <div class="popup__field">
-              <input class="popup__form-input popup__form-input_type_job" id="job-input" name="job" type="text"
-                minlength="2" maxlength="200" required>
-              <span class="job-input-error popup__input-error"></span>
-            </div>
-            <button class="popup__button-save" type="submit">Сохранить</button>
-          </form>
+  <div class="popup popup_edit">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h3 class="popup__title">Редактировать профиль</h3>
+      <form name="profile-form" class="form popup__form-mesto" novalidate>
+        <div class="popup__field">
+          <input class="popup__form-input popup__form-input_type_name" id="name-input" name="name" type="text"
+            minlength="2" maxlength="40" required>
+          <span class="name-input-error popup__input-error"></span>
+        </div>
+        <div class="popup__field">
+          <input class="popup__form-input popup__form-input_type_job" id="job-input" name="job" type="text"
+            minlength="2" maxlength="200" required>
+          <span class="job-input-error popup__input-error"></span>
+        </div>
+        <button class="popup__button-save" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
+  <div class="popup popup_add">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h3 class="popup__title">Новое место</h3>
+      <form name="card-form" class="form popup__card-mesto" novalidate>
+        <div class="popup__field">
+          <input class="popup__form-input popup__form-input_type_title" id="title-input" name="title" type="text"
+            placeholder="Название" minlength="2" maxlength="30" required>
+          <span class="title-input-error  popup__input-error"></span>
+        </div>
+        <div class="popup__field">
+          <input class="popup__form-input popup__form-input_type_link" id="url-input" name="url" type="url"
+            placeholder="Ссылка на картинку" required>
+          <span class="url-input-error popup__input-error"></span>
+        </div>
+        <button class="popup__button-save" type="submit">Создать</button>
+      </form>
+
+    </div>
+  </div>
+  <div class="popup popup_photo">
+
+    <div class="popup__container-preview">
+      <button class="popup__close" type="button"></button>
+      <img class="popup__image-preview" alt="Город Карачаевск" src="./images/kirill-pershin-1088404-unsplash-1.png">
+      <p class="popup__image-view"></p>
+    </div>
+  </div>
+
+  <header class="header">
+    <img class="header__logo" src="./images/logo.svg" alt="Проект Mesto">
+  </header>
+  <main class="main-wrapper">
+    <section class="profile">
+      <div class="profile__name">
+        <img class="profile__avatar" src="./images/cousteau.jpg" alt="Жак-Ив Кусто">
+        <div class="profile__title-wrapper">
+          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <button class="profile__edit-button" type="button"></button>
+          <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
-      <div class="popup popup_add">
-        <div class="popup__container">
-          <button class="popup__close" type="button"></button>
-          <h3 class="popup__title">Новое место</h3>
-          <form name="card-form" class="form popup__card-mesto" novalidate>
-            <div class="popup__field">
-              <input class="popup__form-input popup__form-input_type_title" id="title-input" name="title" type="text"
-                placeholder="Название" minlength="2" maxlength="30" required>
-              <span class="title-input-error  popup__input-error"></span>
-            </div>
-            <div class="popup__field">
-              <input class="popup__form-input popup__form-input_type_link" id="url-input" name="url" type="url"
-                placeholder="Ссылка на картинку" required>
-              <span class="url-input-error popup__input-error"></span>
-            </div>
-            <button class="popup__button-save" type="submit">Создать</button>
-          </form>
+      <button class="profile__add-button" type="button"></button>
+    </section>
+    <section class="elements">
 
-        </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
+  </footer>
+  <template class="clone-element">
+    <div class="element">
+      <button class="element__trash" type="button"></button>
+      <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Город Карачаевск">
+      <div class="element__white-field">
+        <h2 class="element__image-title">Карачаевск</h2>
+        <button class="element__like" type="button"></button>
       </div>
-      <div class="popup popup_photo">
+    </div>
+  </template>
+  <script src="./scripts/index.js"></script>
+  <script src="./scripts/validate.js"></script>
+</body>
 
-        <div class="popup__container-preview">
-          <button class="popup__close" type="button"></button>
-          <img class="popup__image-preview" alt="Город Карачаевск" src="./images/kirill-pershin-1088404-unsplash-1.png">
-          <p class="popup__image-view"></p>
-        </div>
-      </div>
-
-      <header class="header">
-        <img class="header__logo" src="./images/logo.svg" alt="Проект Mesto">
-      </header>
-      <main class="main-wrapper">
-        <section class="profile">
-          <div class="profile__name">
-            <img class="profile__avatar" src="./images/cousteau.jpg" alt="Жак-Ив Кусто">
-            <div class="profile__title-wrapper">
-              <h1 class="profile__title">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button" type="button"></button>
-              <p class="profile__subtitle">Исследователь океана</p>
-            </div>
-          </div>
-          <button class="profile__add-button" type="button"></button>
-        </section>
-        <section class="elements">
-
-        </section>
-      </main>
-      <footer class="footer">
-        <p class="footer__copyright">&copy; 2022 Mesto Russia</p>
-      </footer>
-      <template class="clone-element">
-        <div class="element">
-          <button class="element__trash" type="button"></button>
-          <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Город Карачаевск">
-          <div class="element__white-field">
-            <h2 class="element__image-title">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-      </template>
-      <script src="./scripts/index.js"></script>
-      <script src="./scripts/validate.js"></script>
-    </body>
+</html>
