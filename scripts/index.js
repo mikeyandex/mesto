@@ -16,6 +16,7 @@ const templateCard = templateElement.content.querySelector('.element')
 const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
 const popupPhoto = document.querySelector('.popup_photo');
+const popups = document.querySelectorAll('.popup')
 
 //Поля имя и занятие в popupEdit
 const nameInput = document.querySelector('.popup__form-input_type_name');
@@ -105,49 +106,29 @@ function createCard(title, link) {
     openPopup(popupPhoto);
   });
   return inputCard;
-
-
-
 };
+
+
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-
-  //Закрытие попапа кликом по оверлею
-  popup.addEventListener('click', function (event) {
-    if (event.target.classList.contains('popup_add')) {
-      closePopup(popup);
-    }
-    else
-      if (event.target.classList.contains('popup_edit')) {
-        closePopup(popup);
-      }
-      else
-        if (event.target.classList.contains('popup_photo')) {
-          closePopup(popup);
-        }
-  })
-
-  //вешаю слушатель на Escape и закрываю попап по нажатию на Escape
-  function clickEscape(event) {
-    if (event.code == 'Escape') {
-      closePopup(popup)
-    }
-  }
+  //Вешаю слушатель на Escape
   document.addEventListener('keydown', clickEscape);
 }
 
-
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-
   //Удаляю слушатель с Escape
-  function clickEscape(event) {
-    if (event.code == 'Escape') {
-      closePopup(popup)
-    }
-  }
   document.removeEventListener('keydown', clickEscape);
 }
+
+//Функция закрывает открытый попап на нажатию Эскейп
+function clickEscape(event) {
+  if (event.code === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
 
 function prependCard(card) {
   tableElements.prepend(card);
@@ -166,11 +147,18 @@ addButton.addEventListener('click', () => {
 });
 
 
-//Закрытие  попапов
-closeButtons.forEach((button) => {
-  const popup = button.closest('.popup');
-  button.addEventListener('click', () => closePopup(popup));
-});
+
+//Закрытие попапов кнопкой Close или по нажатию на оверлей
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (event) => {
+    if (event.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (event.target.classList.contains('popup__close')) {
+      closePopup(popup)
+    }
+  })
+})
 
 
 /*Отправка формы профиля*/

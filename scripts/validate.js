@@ -41,6 +41,8 @@ const enableValidation = (settings) => {
     const inputList = Array.from(formElement.querySelectorAll(settings.inputSelector));
     const buttonElement = formElement.querySelector(settings.submitButtonSelector);
 
+
+
     toggleButtonState(inputList, buttonElement);
 
     inputList.forEach((inputElement) => {
@@ -60,15 +62,24 @@ const enableValidation = (settings) => {
   const toggleButtonState = (inputList, buttonElement) => {
     if (hasInvalidInput(inputList)) {
       buttonElement.classList.add(settings.inactiveButtonClass);
+      buttonElement.disabled = true;
     } else {
       buttonElement.classList.remove(settings.inactiveButtonClass);
+      buttonElement.disabled = false;
     }
   }
 
+  const disabledButton = (formElement, settings) => {
+    const buttonElement = formElement.querySelector(settings.submitButtonSelector);
+    buttonElement.classList.add(settings.inactiveButtonClass);
+  }
+  //Функция деактивирует кнопку сабмит после ввода карточки
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      disabledButton(formElement, settings);
+
     });
 
     setEventListeners(formElement);
