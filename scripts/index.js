@@ -1,3 +1,7 @@
+import FormValidator from './validate.js'; 
+import Card from './card.js'; 
+import settings from './validate.js';   
+
 //Кнопки
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -10,7 +14,7 @@ const cardPreviewTitle = document.querySelector('.popup__image-view');
 //Контейнер для карточек
 const tableElements = document.querySelector('.elements');//Контейнер для карточек
 const templateElement = document.querySelector('.clone-element');
-const templateCard = templateElement.content.querySelector('.element')
+const templateCard = templateElement.content.querySelector('.element');
 
 //Определение попапов
 const popupEdit = document.querySelector('.popup_edit');
@@ -33,7 +37,6 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 //Формы
 const profileForm = document.forms['profile-form'];
 const cardForm = document.forms['card-form'];
-
 
 //6 'карточек' при загрузке страницы
 const initialCards = [
@@ -64,11 +67,30 @@ const initialCards = [
 ];
 
 //Вывожу первые 6 карточек
+
 initialCards.reverse().forEach((item) => {
-  const card = createCard(item.name, item.link);
-  prependCard(card);
+/*
+    // Создадим экземпляр карточки
+    const card = new Card(item.text, item.image);
+    // Создаём карточку и возвращаем наружу
+    const cardElement = card.generateCard();
+  
+    // Добавляем в DOM
+    document.body.append(cardElement);
+  */
+
+  const card = new Card(item.name, item.link, '.clone-element');
+  const cardElement = card.createCard();
+ 
+  prependCard(cardElement);
+  
+  
 });
 
+//console.log(templateElement.content)
+
+//----------------------------
+/*
 //Удаление карточки
 function addRemoveListener(inputCard) {
   const deleteButton = inputCard.querySelector('.element__trash');
@@ -107,7 +129,7 @@ function createCard(title, link) {
   });
   return inputCard;
 };
-
+*/
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
@@ -132,6 +154,7 @@ function clickEscape(event) {
 
 function prependCard(card) {
   tableElements.prepend(card);
+
 };
 
 
@@ -182,3 +205,15 @@ function handleCardFormSubmit(evt) {
 }
 
 cardForm.addEventListener('submit', handleCardFormSubmit);
+
+//--------------------------------------------------------
+
+const formEditProfileValidator = new FormValidator(settings, profileForm);
+formEditProfileValidator.enableValidation();
+
+const formAddProfileValidator = new FormValidator(settings, cardForm);
+formAddProfileValidator.enableValidation();
+
+const newCard = new Card(titleInput, linkInput, templateElement);
+
+//prependCard(newCard);
