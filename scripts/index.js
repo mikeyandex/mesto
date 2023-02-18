@@ -1,6 +1,25 @@
-import FormValidator from './validate.js'; 
-import Card from './card.js'; 
-import settings from './validate.js';   
+
+import FormValidator from './validate.js';
+//import constants from './constants.js';
+import Card from './card.js';
+//import settings from './validate.js';
+import { initialCards } from './firstCards.js';
+/*import { editButton, addButton, closeButtons, cardPreview, cardPreviewTitle,
+tableElements, templateElement, templateCard, popupEdit, popupAdd, popupPhoto,
+popups, nameInput, jobInput, titleInput, linkInput, profileTitle, profileSubtitle,
+profileForm, cardForm } from './constants';*/
+
+
+const settings = {
+  formSelector: '.form',
+  inputSelector: '.popup__form-input',
+  submitButtonSelector: '.popup__button-save',
+  inactiveButtonClass: 'popup__button-save_disabled',
+  inputErrorClass: 'popup__form-input_type_error',
+  errorClass: 'popup__input-error_visible'
+};
+
+
 
 //Кнопки
 const editButton = document.querySelector('.profile__edit-button');
@@ -37,105 +56,40 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 //Формы
 const profileForm = document.forms['profile-form'];
 const cardForm = document.forms['card-form'];
+export { editButton, addButton, closeButtons, cardPreview, cardPreviewTitle,
+  tableElements, templateElement, templateCard, popupEdit, popupAdd, popupPhoto,
+  popups, nameInput, jobInput, titleInput, linkInput, profileTitle, profileSubtitle,
+  profileForm, cardForm }
 
-//6 'карточек' при загрузке страницы
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+
+
+
+
+
 
 //Вывожу первые 6 карточек
-
 initialCards.reverse().forEach((item) => {
-/*
-    // Создадим экземпляр карточки
-    const card = new Card(item.text, item.image);
-    // Создаём карточку и возвращаем наружу
-    const cardElement = card.generateCard();
-  
-    // Добавляем в DOM
-    document.body.append(cardElement);
-  */
-
-  const card = new Card(item.name, item.link, '.clone-element');
+  const card = new Card(item.name, item.link, '.clone-element', handleCardClick);
   const cardElement = card.createCard();
- 
+
   prependCard(cardElement);
-  
-  
 });
 
-//console.log(templateElement.content)
-
-//----------------------------
-/*
-//Удаление карточки
-function addRemoveListener(inputCard) {
-  const deleteButton = inputCard.querySelector('.element__trash');
-  const deleteCard = () => {
-    inputCard.remove();
-  };
-  deleteButton.addEventListener('click', deleteCard);
-};
-
-//Лайк
-function addLikeListener(inputCard) {
-  const likeButton = inputCard.querySelector('.element__like');
-  const likeCard = () => {
-    likeButton.classList.toggle('element__like_added');
-  };
-  likeButton.addEventListener('click', likeCard);
-};
-
-//Создаю новую карточку
-function createCard(title, link) {
-  const inputCard = templateCard.cloneNode(true);
-  const cardImage = inputCard.querySelector('.element__image-mesto')
-  cardImage.src = link;
-  cardImage.alt = title;
-  inputCard.querySelector('.element__image-title').textContent = title;
-
-  addRemoveListener(inputCard);
-
-  addLikeListener(inputCard);
-
-  cardImage.addEventListener('click', () => {
-    cardPreview.src = link;
-    cardPreview.alt = title;
-    cardPreviewTitle.textContent = title;
-    openPopup(popupPhoto);
-  });
-  return inputCard;
-};
-*/
+//Превью фотографий
+function handleCardClick(link, title) {
+  cardPreview.src = link;
+  cardPreview.alt = title;
+  cardPreviewTitle.textContent = title;
+  openPopup(popupPhoto);
+}
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   //Вешаю слушатель на Escape
   document.addEventListener('keydown', clickEscape);
-}
+
+
+};
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -163,10 +117,19 @@ editButton.addEventListener('click', () => {
   openPopup(popupEdit);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
+
+  const validatorProfile = new FormValidator(settings, document.querySelector('.popup__form-mesto'));
+  validatorProfile.enableValidation();
+  //profileForm.addEventListener('submit', handleProfileFormSubmit);
 });
 
 addButton.addEventListener('click', () => {
   openPopup(popupAdd);
+
+  const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
+  validatorAdd.enableValidation();
+  //cardForm.addEventListener('submit', handleProfileFormSubmit);
+
 });
 
 
@@ -199,7 +162,9 @@ profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  prependCard(createCard(titleInput.value, linkInput.value));
+  const card = new Card(titleInput.value, linkInput.value, '.clone-element', handleCardClick);
+  const cardElement = card.createCard();
+  prependCard(cardElement);
   closePopup(popupAdd);
   cardForm.reset();
 }
@@ -208,12 +173,5 @@ cardForm.addEventListener('submit', handleCardFormSubmit);
 
 //--------------------------------------------------------
 
-const formEditProfileValidator = new FormValidator(settings, profileForm);
-formEditProfileValidator.enableValidation();
 
-const formAddProfileValidator = new FormValidator(settings, cardForm);
-formAddProfileValidator.enableValidation();
 
-const newCard = new Card(titleInput, linkInput, templateElement);
-
-//prependCard(newCard);
