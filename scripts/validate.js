@@ -1,15 +1,4 @@
 
-
-const settings = {
-  formSelector: '.form',
-  inputSelector: '.popup__form-input',
-  submitButtonSelector: '.popup__button-save',
-  inactiveButtonClass: 'popup__button-save_disabled',
-  inputErrorClass: 'popup__form-input_type_error',
-  errorClass: 'popup__input-error_visible'
-};
-
-
 export default class FormValidator {
   constructor(settings, formElement) {//formElement - то, что валидируется (edit или photo)
 
@@ -22,6 +11,7 @@ export default class FormValidator {
   this._errorClass = settings.errorClass;
 
   this._formElement = formElement;
+  console.log(this._formElement)
 
   }
 
@@ -58,8 +48,8 @@ export default class FormValidator {
     });
   }
 
-   
-  _setEventListeners(formElement) {
+  // 
+  _setEventListeners() {
     const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
     const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
  
@@ -68,8 +58,9 @@ export default class FormValidator {
 
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
-        console.log(inputElement)
+        console.log(this._formElement)
         this._checkInputValidity(this._formElement, inputElement);
+      
         this._toggleButtonState(inputList, buttonElement);
       });
     });

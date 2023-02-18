@@ -41,12 +41,6 @@ _like() {
   this._likeButton.classList.toggle('element__like_added');
 };
 
-
-
-
-
-
-
 _setEventListeners() {
 //Слушатель превью
   this._cardImage.addEventListener(`click`, () => this._handleCardClick(this._link, this._name));

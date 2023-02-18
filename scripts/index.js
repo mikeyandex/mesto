@@ -120,7 +120,6 @@ editButton.addEventListener('click', () => {
 
   const validatorProfile = new FormValidator(settings, document.querySelector('.popup__form-mesto'));
   validatorProfile.enableValidation();
-  //profileForm.addEventListener('submit', handleProfileFormSubmit);
 });
 
 addButton.addEventListener('click', () => {
@@ -128,9 +127,7 @@ addButton.addEventListener('click', () => {
 
   const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
   validatorAdd.enableValidation();
-  //cardForm.addEventListener('submit', handleProfileFormSubmit);
-
-});
+  });
 
 
 
