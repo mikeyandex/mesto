@@ -1,14 +1,6 @@
-
 import FormValidator from './validate.js';
-//import constants from './constants.js';
 import Card from './card.js';
-//import settings from './validate.js';
 import { initialCards } from './firstCards.js';
-/*import { editButton, addButton, closeButtons, cardPreview, cardPreviewTitle,
-tableElements, templateElement, templateCard, popupEdit, popupAdd, popupPhoto,
-popups, nameInput, jobInput, titleInput, linkInput, profileTitle, profileSubtitle,
-profileForm, cardForm } from './constants';*/
-
 
 const settings = {
   formSelector: '.form',
@@ -18,8 +10,6 @@ const settings = {
   inputErrorClass: 'popup__form-input_type_error',
   errorClass: 'popup__input-error_visible'
 };
-
-
 
 //Кнопки
 const editButton = document.querySelector('.profile__edit-button');
@@ -61,17 +51,10 @@ export { editButton, addButton, closeButtons, cardPreview, cardPreviewTitle,
   popups, nameInput, jobInput, titleInput, linkInput, profileTitle, profileSubtitle,
   profileForm, cardForm }
 
-
-
-
-
-
-
 //Вывожу первые 6 карточек
 initialCards.reverse().forEach((item) => {
   const card = new Card(item.name, item.link, '.clone-element', handleCardClick);
   const cardElement = card.createCard();
-
   prependCard(cardElement);
 });
 
@@ -87,8 +70,6 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   //Вешаю слушатель на Escape
   document.addEventListener('keydown', clickEscape);
-
-
 };
 
 function closePopup(popup) {
@@ -105,7 +86,7 @@ function clickEscape(event) {
   }
 }
 
-
+//Вывод карточки на экран
 function prependCard(card) {
   tableElements.prepend(card);
 
@@ -117,14 +98,14 @@ editButton.addEventListener('click', () => {
   openPopup(popupEdit);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-
+  //Валидация формы профиля
   const validatorProfile = new FormValidator(settings, document.querySelector('.popup__form-mesto'));
   validatorProfile.enableValidation();
 });
 
 addButton.addEventListener('click', () => {
   openPopup(popupAdd);
-
+  //Валидация формы карточки
   const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
   validatorAdd.enableValidation();
   });
@@ -167,8 +148,6 @@ function handleCardFormSubmit(evt) {
 }
 
 cardForm.addEventListener('submit', handleCardFormSubmit);
-
-//--------------------------------------------------------
 
 
 
