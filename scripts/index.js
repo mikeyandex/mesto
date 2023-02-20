@@ -1,5 +1,5 @@
-import FormValidator from './validate.js';
-import Card from './card.js';
+import FormValidator from './FormValidator.js';
+import Card from './Сard.js';
 import { initialCards } from './firstCards.js';
 
 const settings = {
@@ -46,17 +46,31 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 //Формы
 const profileForm = document.forms['profile-form'];
 const cardForm = document.forms['card-form'];
-export { editButton, addButton, closeButtons, cardPreview, cardPreviewTitle,
-  tableElements, templateElement, templateCard, popupEdit, popupAdd, popupPhoto,
-  popups, nameInput, jobInput, titleInput, linkInput, profileTitle, profileSubtitle,
-  profileForm, cardForm }
+
 
 //Вывожу первые 6 карточек
 initialCards.reverse().forEach((item) => {
-  const card = new Card(item.name, item.link, '.clone-element', handleCardClick);
-  const cardElement = card.createCard();
+  //const card = new Card(item.name, item.link, '.clone-element', handleCardClick);
+  //const cardElement = card.createCard();
+
+  const cardElement = assembleCard(item.name, item.link);
   prependCard(cardElement);
 });
+
+//Функция "собирает" карточку, остается только вставить ее
+function assembleCard(name, link) {
+  const card = new Card(name, link, '.clone-element', handleCardClick);
+  const cardElement = card.createCard();
+  return cardElement;
+}
+
+//Валидация формы профиля
+const validatorProfile = new FormValidator(settings, document.querySelector('.popup__form-mesto'));
+validatorProfile.enableValidation();
+
+//Валидация формы карточки
+const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
+validatorAdd.enableValidation();
 
 //Превью фотографий
 function handleCardClick(link, title) {
@@ -89,28 +103,20 @@ function clickEscape(event) {
 //Вывод карточки на экран
 function prependCard(card) {
   tableElements.prepend(card);
-
 };
-
 
 //Открытие попапа редактирования
 editButton.addEventListener('click', () => {
   openPopup(popupEdit);
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileSubtitle.textContent;
-  //Валидация формы профиля
-  const validatorProfile = new FormValidator(settings, document.querySelector('.popup__form-mesto'));
-  validatorProfile.enableValidation();
 });
 
+//Открытие попапа карточки
 addButton.addEventListener('click', () => {
+  cardForm.reset();//Сброс полей при открытии попапа. Старые данные стираются.
   openPopup(popupAdd);
-  //Валидация формы карточки
-  const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
-  validatorAdd.enableValidation();
-  });
-
-
+});
 
 //Закрытие попапов кнопкой Close или по нажатию на оверлей
 popups.forEach((popup) => {
@@ -126,7 +132,6 @@ popups.forEach((popup) => {
 
 
 /*Отправка формы профиля*/
-
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
@@ -137,11 +142,9 @@ function handleProfileFormSubmit(evt) {
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 /*Отправка формы карточки*/
-
 function handleCardFormSubmit(evt) {
   evt.preventDefault();
-  const card = new Card(titleInput.value, linkInput.value, '.clone-element', handleCardClick);
-  const cardElement = card.createCard();
+  const cardElement = assembleCard(titleInput.value, linkInput.value);
   prependCard(cardElement);
   closePopup(popupAdd);
   cardForm.reset();

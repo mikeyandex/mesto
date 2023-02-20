@@ -16,7 +16,6 @@ export default class Card {
     return this._card;
   }
 
-
   //Создаю новую карточку
   createCard() {
     this._element = this._getTemplate();//Вызов геттемплейт
