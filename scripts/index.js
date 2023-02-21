@@ -148,6 +148,7 @@ function handleCardFormSubmit(evt) {
   prependCard(cardElement);
   closePopup(popupAdd);
   cardForm.reset();
+  validatorAdd.toggleButtonState();//блокирую кнопку Submit при повотрном открытии формы
 }
 
 cardForm.addEventListener('submit', handleCardFormSubmit);

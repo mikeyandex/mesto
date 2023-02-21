@@ -44,18 +44,18 @@ export default class FormValidator {
 
   //Ставлю слушатели на поля ввода
   _setEventListeners() {
-    this._toggleButtonState(this._inputList, this._buttonElement);
+    this.toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(this._inputList, this._buttonElement);
+        this.toggleButtonState();
       });
     });
   };
 
   //Неактивная(активная) кнопка
-  _toggleButtonState(inputList) {
-    if (this._hasInvalidInput(inputList)) {
+  toggleButtonState() {
+    if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this._inactiveButtonClass);
       this._buttonElement.setAttribute('disabled', '');
     } else {
