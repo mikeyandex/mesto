@@ -1,6 +1,11 @@
 import FormValidator from './FormValidator.js';
 import Card from './Сard.js';
 import { initialCards } from './firstCards.js';
+import UserInfo from './components/PopupWithForm.js';
+import Popup from './components/Popup.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+
 
 const settings = {
   formSelector: '.form',
@@ -40,8 +45,16 @@ const titleInput = document.querySelector('.popup__form-input_type_title');
 const linkInput = document.querySelector('.popup__form-input_type_link');
 
 //Поля имя и занятие в профиле
+/*
+const userData = {
+  name: document.querySelector('.profile__title'),
+  job: document.querySelector('.profile__subtitle'),
+  //inputName: nameInput.value,
+  //inputJob: jobInput.value
+};*/
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
+
 
 //Формы
 const profileForm = document.forms['profile-form'];
@@ -50,9 +63,6 @@ const cardForm = document.forms['card-form'];
 
 //Вывожу первые 6 карточек
 initialCards.reverse().forEach((item) => {
-  //const card = new Card(item.name, item.link, '.clone-element', handleCardClick);
-  //const cardElement = card.createCard();
-
   const cardElement = assembleCard(item.name, item.link);
   prependCard(cardElement);
 });
@@ -73,31 +83,23 @@ const validatorAdd = new FormValidator(settings, document.querySelector('.popup_
 validatorAdd.enableValidation();
 
 //Превью фотографий
-function handleCardClick(link, title) {
-  cardPreview.src = link;
-  cardPreview.alt = title;
-  cardPreviewTitle.textContent = title;
-  openPopup(popupPhoto);
+function handleCardClick(title, link) {  
+  const popupPreview = new PopupWithImage(popupPhoto); 
+  popupPreview.open(link, title);
+  popupPreview.setEventListeners();
 }
 
+
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  //Вешаю слушатель на Escape
-  document.addEventListener('keydown', clickEscape);
+  const popupTemp = new Popup(popup);
+  console.log(popup)
+  popupTemp.open();
+  popupTemp.setEventListeners();
 };
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  //Удаляю слушатель с Escape
-  document.removeEventListener('keydown', clickEscape);
-}
-
-//Функция закрывает открытый попап на нажатию Эскейп
-function clickEscape(event) {
-  if (event.code === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
+  const popupTemp = new Popup(popup);
+  popupTemp.close();
 }
 
 //Вывод карточки на экран
@@ -105,31 +107,36 @@ function prependCard(card) {
   tableElements.prepend(card);
 };
 
+
+//Экз класса
+  const userInfo = new UserInfo({
+    name: '.profile__title',
+    job: '.profile__subtitle',
+  });
+
 //Открытие попапа редактирования
 editButton.addEventListener('click', () => {
   openPopup(popupEdit);
-  nameInput.value = profileTitle.textContent;
-  jobInput.value = profileSubtitle.textContent;
+  //nameInput.value = profileTitle.textContent;
+  //jobInput.value = profileSubtitle.textContent;
+  //вместо этого вызов 
+  const userProfile = new UserInfo(userData);
+  userProfile.getUserInfo();
+  console.log($`{userProfile.getUserInfo()}`)
+    //nameInput.value = profileTitle.textContent;
+  //jobInput.value = profileSubtitle.textContent;
+
+
+
 });
 
 //Открытие попапа карточки
 addButton.addEventListener('click', () => {
-  cardForm.reset();//Сброс полей при открытии попапа. Старые данные стираются.
-  openPopup(popupAdd);
+  
+  const popupForm = new PopupWithForm(popupAdd, handleCardFormSubmit);
+  popupForm.open();
+  popupForm.setEventListeners();
 });
-
-//Закрытие попапов кнопкой Close или по нажатию на оверлей
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (event) => {
-    if (event.target.classList.contains('popup_opened')) {
-      closePopup(popup)
-    }
-    if (event.target.classList.contains('popup__close')) {
-      closePopup(popup)
-    }
-  })
-})
-
 
 /*Отправка формы профиля*/
 function handleProfileFormSubmit(evt) {
@@ -148,10 +155,30 @@ function handleCardFormSubmit(evt) {
   prependCard(cardElement);
   closePopup(popupAdd);
   cardForm.reset();
-  validatorAdd.toggleButtonState();//блокирую кнопку Submit при повотрном открытии формы
+  validatorAdd.toggleButtonState();//блокирую кнопку Submit при повторном открытии формы
 }
 
 cardForm.addEventListener('submit', handleCardFormSubmit);
+
+
+
+
+
+
+
+
+
+
+
+//const popupTemp = new PopupWithForm (popup, handleCardFormSubmit);
+//popupTemp.setEventListeners();
+/*
+const popupWithImage = new PopupWithImage('.popup_photo');
+popupWithImage.setEventListeners();
+console.log(popupWithImage.setEventListeners())
+
+const viewImagePopup = new PopupWithImage('.popup_type_image');
+viewImagePopup.setEventListeners();*/
 
 
 
