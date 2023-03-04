@@ -1,11 +1,11 @@
 import FormValidator from './FormValidator.js';
 import Card from './Сard.js';
 import { initialCards } from './firstCards.js';
-import UserInfo from './components/PopupWithForm.js';
+
 import Popup from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
-
+import UserInfo from './components/UserInfo.js';
 
 const settings = {
   formSelector: '.form',
@@ -107,27 +107,23 @@ function prependCard(card) {
   tableElements.prepend(card);
 };
 
+  //Экземпляр класса UserInfo
+  const userProfile = new UserInfo({name: '.profile__title',
+  job: '.profile__subtitle'});
 
-//Экз класса
-  const userInfo = new UserInfo({
-    name: '.profile__title',
-    job: '.profile__subtitle',
-  });
-
+  
 //Открытие попапа редактирования
 editButton.addEventListener('click', () => {
   openPopup(popupEdit);
   //nameInput.value = profileTitle.textContent;
   //jobInput.value = profileSubtitle.textContent;
   //вместо этого вызов 
-  const userProfile = new UserInfo(userData);
-  userProfile.getUserInfo();
-  console.log($`{userProfile.getUserInfo()}`)
-    //nameInput.value = profileTitle.textContent;
-  //jobInput.value = profileSubtitle.textContent;
 
+  const userData = userProfile.getUserInfo();
+  console.log(userData)
 
-
+  nameInput.value = userData.name;
+  jobInput.value = userData.job;
 });
 
 //Открытие попапа карточки
@@ -141,8 +137,16 @@ addButton.addEventListener('click', () => {
 /*Отправка формы профиля*/
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileSubtitle.textContent = jobInput.value;
+  
+  //profileTitle.textContent = nameInput.value;
+  //profileSubtitle.textContent = jobInput.value;
+
+  
+  const userData = userProfile.setUserInfo(nameInput.value, jobInput.value);
+
+  profileTitle.textContent = userData.name;
+  profileSubtitle.textContent = userData.job;
+
   closePopup(popupEdit)
 }
 
@@ -159,26 +163,3 @@ function handleCardFormSubmit(evt) {
 }
 
 cardForm.addEventListener('submit', handleCardFormSubmit);
-
-
-
-
-
-
-
-
-
-
-
-//const popupTemp = new PopupWithForm (popup, handleCardFormSubmit);
-//popupTemp.setEventListeners();
-/*
-const popupWithImage = new PopupWithImage('.popup_photo');
-popupWithImage.setEventListeners();
-console.log(popupWithImage.setEventListeners())
-
-const viewImagePopup = new PopupWithImage('.popup_type_image');
-viewImagePopup.setEventListeners();*/
-
-
-
