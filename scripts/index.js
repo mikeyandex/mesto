@@ -97,6 +97,7 @@ function prependCard(card) {
   tableElements.prepend(card);
 };
 
+
 //Экземпляр класса Section
 const cardList = new Section({
   items: initialCards,
@@ -118,11 +119,14 @@ cardList.renderItems();
   //Экземпляр класса PopupWithForm  
   const popupForm = new PopupWithForm(popupAdd, () =>  {
     //evt.preventDefault();
-    const cardElement = assembleCard(titleInput.value, linkInput.value);
+
+    const newCard = new Card(titleInput.value, linkInput.value, '.clone-element', handleCardClick);
+    const cardElement = newCard.createCard();       
+
     prependCard(cardElement);
     console.log('вызов')
-    //closePopup(popupAdd);
-    //cardForm.reset();
+    closePopup(popupAdd);
+    cardForm.reset();
     validatorAdd.toggleButtonState();//блокирую кнопку Submit при повторном открытии формы
   });
   //popupForm.setEventListeners();
@@ -144,6 +148,7 @@ addButton.addEventListener('click', () => {
 });
 
 /*Отправка формы профиля*/
+/*
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 
@@ -154,4 +159,4 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupEdit)
 }
 
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);*/
