@@ -6,7 +6,7 @@ import Popup from './components/Popup.js';
 import PopupWithImage from './components/PopupWithImage.js';
 import PopupWithForm from './components/PopupWithForm.js';
 import UserInfo from './components/UserInfo.js';
-import Section from './components/UserInfo.js';
+import Section from './components/Section.js';
 
 const settings = {
   formSelector: '.form',
@@ -55,20 +55,14 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 const profileForm = document.forms['profile-form'];
 const cardForm = document.forms['card-form'];
 
-
+/*
 //Вывожу первые 6 карточек
-
 initialCards.reverse().forEach((item) => {
-  const cardElement = assembleCard(item.name, item.link);
+  const card = new Card(item.name, item.link, '.clone-element', handleCardClick);
+  const cardElement = card.createCard();
   prependCard(cardElement);
 });
-
-//Функция "собирает" карточку, остается только вставить ее
-function assembleCard(name, link) {
-  const card = new Card(name, link, '.clone-element', handleCardClick);
-  const cardElement = card.createCard();
-  return cardElement;
-}
+*/
 
 //Валидация формы профиля
 const validatorProfile = new FormValidator(settings, document.querySelector('.popup__form-mesto'));
@@ -102,20 +96,18 @@ function closePopup(popup) {
 function prependCard(card) {
   tableElements.prepend(card);
 };
-/*
+
 //Экземпляр класса Section
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
-    
-    const card = createCard(item, '.clone-element', handleCardClick);
-    const element = card.createCard();
-       
-    cardList.addItem(element);
+    const newCard = new Card(item.name, item.link, '.clone-element', handleCardClick);
+    const cardElement = newCard.createCard();       
+    cardList.addItem(cardElement);
   }
-}, tableElements);*/
+}, '.elements');
 
-//cardList.renderItems();
+cardList.renderItems();
 
 
   //Экземпляр класса UserInfo
