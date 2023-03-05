@@ -11,13 +11,12 @@ import Popup from "./Popup.js";
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleCardFormSubmit) {
     super(popupSelector);
-
+    
     this._popupForm = document.querySelector('.popup_add');
     this._inputList = this._popupForm.querySelectorAll('.popup__form-input');
+    console.log(this._inputList)
     this._submitButtonElement = this._popupForm.querySelector('.popup__button-save');
     this._handleCardFormSubmit = handleCardFormSubmit;
-
-    
   }
   _getInputValues() {
     this._formValues = {};//Создаю пустой объект
@@ -29,17 +28,17 @@ export default class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
-    super.setEventListeners();
-    console.log(this)
+    super.setEventListeners();    
       this._popup.addEventListener('submit', (event) => {
         event.preventDefault();
-        this._handleFormSubmit(this._getInputValues());
+        this._handleCardFormSubmit(this._getInputValues());       
       });
   }
 
   close() {
     super.close();
-    this._popupForm.reset;
+    console.log(this)
+    this._popupForm.reset();
   }
 
 }
