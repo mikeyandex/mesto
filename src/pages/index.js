@@ -1,12 +1,38 @@
-import FormValidator from './FormValidator.js';
-import Card from './Сard.js';
-import { initialCards } from './firstCards.js';
+import FormValidator from '../components/FormValidator.js';
+import Card from '../components/Сard.js';
+import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Section from '../components/Section.js';
 
-import Popup from './components/Popup.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
-import Section from './components/Section.js';
+//6 'карточек' при загрузке страницы
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
 const settings = {
   formSelector: '.form',
@@ -32,6 +58,7 @@ const templateElement = document.querySelector('.clone-element');
 const templateCard = templateElement.content.querySelector('.element');
 
 //Определение попапов
+const popup = document.querySelector('.popup');
 const popupEdit = document.querySelector('.popup_edit');
 const popupAdd = document.querySelector('.popup_add');
 const popupPhoto = document.querySelector('.popup_photo');
@@ -46,23 +73,12 @@ const titleInput = document.querySelector('.popup__form-input_type_title');
 const linkInput = document.querySelector('.popup__form-input_type_link');
 
 //Поля имя и занятие в профиле
-
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
-
 
 //Формы
 const profileForm = document.forms['profile-form'];
 const cardForm = document.forms['card-form'];
-
-/*
-//Вывожу первые 6 карточек
-initialCards.reverse().forEach((item) => {
-  const card = new Card(item.name, item.link, '.clone-element', handleCardClick);
-  const cardElement = card.createCard();
-  prependCard(cardElement);
-});
-*/
 
 //Валидация формы профиля
 const validatorProfile = new FormValidator(settings, document.querySelector('.popup__form-mesto'));
@@ -72,91 +88,69 @@ validatorProfile.enableValidation();
 const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
 validatorAdd.enableValidation();
 
+
+
+//const popupPreview = new PopupWithImage(popupPhoto);
+//popupPreview.open(title, link);
+
+
 //Превью фотографий
-function handleCardClick(title, link) {  
-  const popupPreview = new PopupWithImage(popupPhoto); 
+function handleCardClick(title, link) {
+  const popupPreview = new PopupWithImage(popupPhoto);
   popupPreview.open(link, title);
   popupPreview.setEventListeners();
 }
 
-
-function openPopup(popup) {
-  const popupTemp = new Popup(popup);
-  console.log(popup)
-  popupTemp.open();
-  popupTemp.setEventListeners();
-};
-
-function closePopup(popup) {
-  const popupTemp = new Popup(popup);
-  popupTemp.close();
-}
-
-//Вывод карточки на экран
-function prependCard(card) {
-  tableElements.prepend(card);
-};
-
+//Экземпляр класса Popup 
+const newPopup = new Popup(popup);
+newPopup.setEventListeners();
 
 //Экземпляр класса Section
 const cardList = new Section({
   items: initialCards,
   renderer: (item) => {
     const newCard = new Card(item.name, item.link, '.clone-element', handleCardClick);
-    const cardElement = newCard.createCard();       
+    const cardElement = newCard.createCard();
     cardList.addItem(cardElement);
   }
 }, '.elements');
-
 cardList.renderItems();
 
+//Экземпляр класса UserInfo
+const userProfile = new UserInfo({
+  name: '.profile__title',
+  job: '.profile__subtitle'
+});
 
-  //Экземпляр класса UserInfo
-  const userProfile = new UserInfo({name: '.profile__title',
-  job: '.profile__subtitle'});
+
+//Экземпляр класса PopupWithForm  
+const popupForm = new PopupWithForm(popupAdd, () => {
+  const newCard = new Card(titleInput.value, linkInput.value, '.clone-element', handleCardClick);
+  const cardElement = newCard.createCard();
+  cardList.addItem(cardElement);
+  popupForm.close();
+  validatorAdd.toggleButtonState();//блокирую кнопку Submit при повторном открытии формы
+});
+popupForm.setEventListeners();
 
 
-  //Экземпляр класса PopupWithForm  
-  const popupForm = new PopupWithForm(popupAdd, () =>  {
-    //evt.preventDefault();
-
-    const newCard = new Card(titleInput.value, linkInput.value, '.clone-element', handleCardClick);
-    const cardElement = newCard.createCard();       
-
-    prependCard(cardElement);
-    console.log('вызов')
-    closePopup(popupAdd);
-    cardForm.reset();
-    validatorAdd.toggleButtonState();//блокирую кнопку Submit при повторном открытии формы
-  });
-  //popupForm.setEventListeners();
-
-  
 //Открытие попапа редактирования
 editButton.addEventListener('click', () => {
-  openPopup(popupEdit);
-
+  newPopup.open();  
   const userData = userProfile.getUserInfo();
   nameInput.value = userData.name;
   jobInput.value = userData.job;
 });
 
+
+profileForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  userProfile.setUserInfo(nameInput.value, jobInput.value);
+  newPopup.close();
+});
+
+
 //Открытие попапа карточки
 addButton.addEventListener('click', () => {
   popupForm.open();
-  popupForm.setEventListeners();
 });
-
-/*Отправка формы профиля*/
-/*
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
-
-  const userData = userProfile.setUserInfo(nameInput.value, jobInput.value);
-  profileTitle.textContent = userData.name;
-  profileSubtitle.textContent = userData.job;
-
-  closePopup(popupEdit)
-}
-
-profileForm.addEventListener('submit', handleProfileFormSubmit);*/
