@@ -5,6 +5,8 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
+import './index.css'; // добавьте импорт главного файла стилей 
+
 
 //6 'карточек' при загрузке страницы
 const initialCards = [
@@ -88,17 +90,13 @@ validatorProfile.enableValidation();
 const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
 validatorAdd.enableValidation();
 
-
-
-//const popupPreview = new PopupWithImage(popupPhoto);
-//popupPreview.open(title, link);
-
+//Экземпляр класса PopupPopupWithImage 
+const popupPreview = new PopupWithImage(popupPhoto);
+popupPreview.setEventListeners();
 
 //Превью фотографий
-function handleCardClick(title, link) {
-  const popupPreview = new PopupWithImage(popupPhoto);
-  popupPreview.open(link, title);
-  popupPreview.setEventListeners();
+const handleCardClick = (title, link) => {
+  popupPreview.open(link, title);  
 }
 
 //Экземпляр класса Popup 
@@ -121,7 +119,6 @@ const userProfile = new UserInfo({
   name: '.profile__title',
   job: '.profile__subtitle'
 });
-
 
 //Экземпляр класса PopupWithForm  
 const popupForm = new PopupWithForm(popupAdd, () => {
