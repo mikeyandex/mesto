@@ -1,10 +1,9 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, handleCardFormSubmit) {
-    super(popupSelector);
-    
-    this._popupForm = document.querySelector('.popup__card-mesto');
+  constructor(popupElement, handleCardFormSubmit) {
+    super(popupElement);    
+    this._popupForm = popupElement;
     this._inputList = this._popupForm.querySelectorAll('.popup__form-input');
     this._submitButtonElement = this._popupForm.querySelector('.popup__button-save');
     this._handleCardFormSubmit = handleCardFormSubmit;
@@ -13,7 +12,6 @@ export default class PopupWithForm extends Popup {
     this._formValues = {};//Создаю пустой объект
     this._inputList.forEach(input => {
     this._formValues[input.name] = input.value});//и обхожу его циклом
-    console.log(this._formValues)
     return this._formValues;
 
   }
@@ -22,14 +20,14 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();    
     this._popupForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        this._handleCardFormSubmit(this._getInputValues());       
+        this._handleCardFormSubmit(this._getInputValues());
+        this.close;  
+        event.target.reset();     
       });
   }
 
   close() {
-    super.close();
-    console.log(this._popupForm)
-    this._popupForm.reset();
+    super.close();    
   }
 
 }
