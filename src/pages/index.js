@@ -4,36 +4,8 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
+import Api from '../components/Api.js';
 import './index.css'; // добавьте импорт главного файла стилей 
-
-
-//6 'карточек' при загрузке страницы
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 const settings = {
   formSelector: '.form',
@@ -104,15 +76,35 @@ function createCard(name, link) {
   return cardElement
 };
 
-//Экземпляр класса Section
-const cardList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const cardElement = createCard(item.name, item.link);
-    cardList.addItem(cardElement);
+//Создаю экземпляр АРI
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-61',
+  headers: {
+    authorization: '0a100dcc-5407-41fd-b761-d5e72771a339',
+    'Content-Type': 'application/json'
   }
-}, '.elements');
-cardList.renderItems();
+});
+
+//Загрузка начальных карточек с сервера
+api.getInitialCards().then((items) => {
+  const arr = items
+  //Экземпляр класса Section
+  const cardList = new Section({
+    items: arr,
+    renderer: (item) => {
+      const cardElement = createCard(item.name, item.link);
+      cardList.addItem(cardElement);
+    }
+  }, '.elements');
+  cardList.renderItems();
+})
+
+//Загрузка информации о пользователе с сервера
+api.getUserInfo().then((data) => {
+  userProfile.setUserInfo(data.name, data.about)
+});
+
+
 
 
 //Экземпляр класса UserInfo
@@ -125,14 +117,16 @@ const userProfile = new UserInfo({
 const popupEditProfile = new PopupWithForm(popupEdit, () => {
   userProfile.setUserInfo(nameInput.value, jobInput.value);
   popupEditProfile.close();
+//Отправляю новый профайл на сервер
+  api.patchProfile(nameInput.value, jobInput.value).then(() => {
+    user.name = nameInput.value;
+    user.about = jobInput.value;
+  })
 });
 popupEditProfile.setEventListeners();
 
 //Попап добавления карточки 
 const popupAddCard = new PopupWithForm(popupAdd, () => {
-/*
-  const newCard = new Card(titleInput.value, linkInput.value, '.clone-element', handleCardClick);
-  const cardElement = newCard.createCard();*/
   const cardElement = createCard(titleInput.value, linkInput.value);
   cardList.addItem(cardElement);
   popupAddCard.close();
