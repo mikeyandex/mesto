@@ -49,12 +49,36 @@
 
     </div>
   </div>
-  <div class="popup popup_photo">
 
+  <div class="popup popup_photo">
     <div class="popup__container-preview">
       <button class="popup__close" type="button"></button>
       <img class="popup__image-preview" alt="Город Карачаевск" src="./images/kirill-pershin-1088404-unsplash-1.png">
       <p class="popup__image-view"></p>
+    </div>
+  </div>
+
+  <div class="popup popup_confirm">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h3 class="popup__title">Вы уверены?</h3>
+      <button class="popup__button-save" type="submit">Да</button>
+    </div>
+  </div>
+
+  <div class="popup popup_avatar">
+    <div class="popup__container">
+      <button class="popup__close" type="button"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <form name="card-form" class="form popup__card-mesto" novalidate>
+        <div class="popup__field">
+          <input class="popup__form-input popup__form-input_type_link" id="avatar-url-input" name="avatar-url" type="url"
+            placeholder="Ссылка на картинку" required>
+          <span class="url-input-error popup__input-error"></span>
+        </div>
+        <button class="popup__button-save submit-avatar" type="submit">Сохранить</button>
+      </form>
+
     </div>
   </div>
 
@@ -64,7 +88,8 @@
   <main class="main-wrapper">
     <section class="profile">
       <div class="profile__name">
-        <img class="profile__avatar" src="<%=require('./images/cousteau.jpg')%>" alt="Жак-Ив Кусто">
+        <img class="profile__avatar" src="<%=require('./images/waiting.png')%>" alt="Жак-Ив Кусто">
+        <button class="profile__avatar-button"></button>
         <div class="profile__title-wrapper">
           <h1 class="profile__title"></h1>
           <button class="profile__edit-button" type="button"></button>
@@ -85,15 +110,15 @@
       <button class="element__trash" type="button"></button>
       <img class="element__image-mesto" src="./images/kirill-pershin-1088404-unsplash-1.png" alt="Город Карачаевск">
       <div class="element__white-field">
-        <h2 class="element__image-title">Карачаевск</h2>  
-      <div class="element__wrapper">      
-        <button class="element__like" type="button"></button>
-        <div class="element__counter">11</div>
-      </div>  
+        <h2 class="element__image-title">Карачаевск</h2>
+        <div class="element__wrapper">
+          <button class="element__like" type="button"></button>
+          <div class="element__counter"></div>
+        </div>
       </div>
     </div>
   </template>
-   
+
 </body>
 
 </html>

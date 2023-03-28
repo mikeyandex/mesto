@@ -1,0 +1,10 @@
+.profile__avatar-wrapper {
+  display:flex;
+}
+
+@media screen and (max-width: 1023.9px) {
+  .profile__avatar-wrapper {
+    justify-content: center;
+    
+  }
+}
