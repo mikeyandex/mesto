@@ -221,8 +221,7 @@ const popupAvatar = new PopupWithForm(popupAv,
     submitButtonAvatar.textContent = 'Сохранение...';
     return api.changeAvatar(linkURL)
       .then((data) => {
-        console.log(data)
-        UserInfo.changeAvatarInfo(data);
+        userProfile.changeAvatarInfo(data);
         popupAvatar.close();
       })
       .catch((err) => {

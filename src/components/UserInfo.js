@@ -20,12 +20,8 @@ export default class UserInfo {
     this._job.textContent = jobInput;
   }
   
-  _setAvatarInfo(data) {
-    this._avatar.src = data.avatar;
-}
-
 changeAvatarInfo(data) {
-    this._setAvatarInfo(data);
+  this._avatar.src = data.avatar;
 }
 
 }
