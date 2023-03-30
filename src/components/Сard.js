@@ -1,7 +1,8 @@
 export default class Card {
-  constructor(titleInput, linkInput, cardSelector, handleCardClick, toDelete, setLike, removeLike) {
+  constructor(titleInput, linkInput, counterOfLikes, cardSelector, handleCardClick, toDelete, setLike, removeLike) {
     this._name = titleInput;
     this._link = linkInput;
+    this._counterOfLikes = counterOfLikes;
 /*
     this._link = data.link;
     this._name = data.name;
@@ -40,6 +41,7 @@ export default class Card {
     //this._likeCounter.textContent = this._likes.length;
 
     this._deleteButton = this._element.querySelector('.element__trash');
+
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.element__image-title').textContent = this._name;
@@ -59,14 +61,19 @@ export default class Card {
     //Слушатель удаления карточки
     this._deleteButton.addEventListener(`click`, (event) => {
       this._toDelete();
+    
       event.target.closest
       //this._element.remove();
     });
+    
 
     //Слушатель лайка
     this._likeButton.addEventListener(`click`, () => {
       this._like();
     });
+  }
+  _toDelete() {
+    this._element.remove();
   }
 }
 
