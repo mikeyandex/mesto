@@ -1,16 +1,11 @@
 export default class Card {
-  constructor(titleInput, linkInput, counterOfLikes, cardSelector, handleCardClick, toDelete, setLike, removeLike) {
+  constructor(titleInput, linkInput, currentUserId, counterOfLikes, cardSelector, handleCardClick, toDelete, setLike, removeLike) {
     this._name = titleInput;
     this._link = linkInput;
     this._counterOfLikes = counterOfLikes;
-/*
-    this._link = data.link;
-    this._name = data.name;
-    this._cardId = data._id; //id карточки
-    this._likes = data.likes;
-
-    this._userId = userId; //мой id 
-    this._isOwnerCard = data.owner._id === userId; //id владельца карточки*/
+    /*
+    this._ownerCard = data.owner._id === currentUserId;*/
+    this._currentUserId = currentUserId;
 
     this._cardSelector = cardSelector;
 

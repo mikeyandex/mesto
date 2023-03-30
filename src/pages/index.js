@@ -44,13 +44,11 @@ const popupAv = document.querySelector('.popup_avatar');
 
 const counterOfLikes = document.querySelector('.element__counter');
 
+
+
 //Поля имя и занятие в popupEdit
 const nameInput = document.querySelector('.popup__form-input_type_name');
 const jobInput = document.querySelector('.popup__form-input_type_job');
-
-
-//Кнопка смены аватара
-
 
 
 //Поля название и линк в popupAdd
@@ -61,10 +59,8 @@ const linkInput = document.querySelector('.popup__form-input_type_link');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const avatar = document.querySelector('.profile__avatar');
-console.log(avatar.sr)
-//Поле ввода аватара
 
-
+let currentUserId;
 
 
 //Формы
@@ -80,14 +76,10 @@ validatorProfile.enableValidation();
 const validatorAdd = new FormValidator(settings, document.querySelector('.popup__card-mesto'));
 validatorAdd.enableValidation();
 
-//Экземпляр класса PopupPopupWithImage 
+//Экземпляр класса PopupWithImage 
 const popupPreview = new PopupWithImage(popupPhoto);
 popupPreview.setEventListeners();
 
-//Превью фотографий
-const handleCardClick = (title, link) => {
-  popupPreview.open(link, title);
-}
 
 //Экземпляр класса Section
 const cardList = new Section({
@@ -97,13 +89,41 @@ const cardList = new Section({
   }
 }, '.elements');
 
+//Создаю экземпляр АРI
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-61',
+  headers: {
+    authorization: '0a100dcc-5407-41fd-b761-d5e72771a339',
+    'Content-Type': 'application/json'
+  }
+});
+
+
 //Функция создает карточку перед выводом на экран 
 function createCard(name, link) {
-  const newCard = new Card(name, link, counterOfLikes, '.clone-element', handleCardClick, toDelete, setLike, removeLike);
+  const newCard = new Card(name, link, currentUserId, counterOfLikes, '.clone-element', handleCardClick, toDelete, setLike, removeLike);
   const cardElement = newCard.createCard();
   return cardElement
 };
 
+//Превью фотографий
+const handleCardClick = (title, link) => {
+  popupPreview.open(link, title);
+}
+
+//Удаление карточки
+const toDelete = () => {
+  popupConfirm.open();
+  popupConfirm.setEventListeners();
+  api.deleteCard(id).then((data) => {
+
+    //удаление карточки
+    console.log(data)
+
+  })
+}
+
+//Ставлю лайк
 const setLike = (id) => {
   api.like(id).then(() => {
     cardElement.like(id);
@@ -114,6 +134,7 @@ const setLike = (id) => {
     )
 };
 
+//Снимаю лайк
 const removeLike = (id) => {
   api.removeLike(id).then(() => {
     cardElement.like(id);
@@ -125,25 +146,16 @@ const removeLike = (id) => {
 };
 
 
-
-//Создаю экземпляр АРI
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-61',
-  headers: {
-    authorization: '0a100dcc-5407-41fd-b761-d5e72771a339',
-    'Content-Type': 'application/json'
-  }
-});
-
 //Загрузка информации о пользователе с сервера
 api.getUserInfo().then((data) => {
-  userProfile.setUserInfo(data.name, data.about, data.avatar)
-  console.log(data)
+  userProfile.setUserInfo(data.name, data.about, data.avatar, data._id)
+  currentUserId = data._id;
+  console.log(currentUserId)
 })
   .catch((error) => {
     console.log(error);
   });
-
+  console.log(currentUserId)
 
 
 
@@ -157,18 +169,12 @@ api.getInitialCards().then((items) => {
 })
 
 
-
-
-
-
-
 //Экземпляр класса UserInfo
 const userProfile = new UserInfo({
   name: '.profile__title',
   job: '.profile__subtitle',
   avatar: '.profile__avatar',
 });
-
 
 
 
@@ -194,8 +200,8 @@ const popupAddCard = new PopupWithForm(popupAdd, () => {
   api.addNewCard(titleInput.value, linkInput.value).then((data) => {
     cardList.addItem(cardElement);
     console.log(data)
-
   })
+
   popupAddCard.close();
   validatorAdd.toggleButtonState();//блокирую кнопку Submit при повторном открытии формы
 
@@ -205,24 +211,6 @@ popupAddCard.setEventListeners();
 
 //Создаю попап для согласия на удаление
 const popupConfirm = new PopupWithForm(popupDelete);
-const toDelete = () => {
-  popupConfirm.open();
-  popupConfirm.setEventListeners();
-  api.deleteCard(id).then((data) => {
-
-    //удаление карточки
-    console.log(data)
-
-  })
-
-}
-
-
-
-
-
-
-
 
 
 //Открыл попап аватар
@@ -248,10 +236,6 @@ const popupAvatar = new PopupWithForm(popupAv,
       });
   }
 );
-
-
-
-
 popupAvatar.setEventListeners();
 
 
