@@ -81,8 +81,8 @@ popupPreview.setEventListeners();
 
 //Экземпляр класса Section
 const cardList = new Section({
-  renderer: (item) => {
-    const cardElement = createCard(item.name, item.link);
+  renderer: (data) => {
+    const cardElement = createCard(data, userId);
     cardList.addItem(cardElement);
   }
 }, '.elements');
@@ -98,8 +98,8 @@ const api = new Api({
 
 
 //Функция создает карточку перед выводом на экран 
-function createCard(name, link) {
-  const newCard = new Card(name, link, newCard, currentUserId, counterOfLikes, '.clone-element', handleCardClick, toDelete, setLike, removeLike
+function createCard(data, userId) {
+  const newCard = new Card(data, userId, counterOfLikes, '.clone-element', handleCardClick, toDelete, setLike, removeLike
   );
   const cardElement = newCard.createCard();
   return cardElement
@@ -144,12 +144,12 @@ const removeLike = (id) => {
     )
 };
 
-let mainUserId;// Мой Id
+let userId;// 
 // Загрузка карточек и данных о пользователе
 Promise.all([api.getInitialCards(), api.getUserInfo()])
   .then(([initialCards, data]) => {
     userProfile.setUserInfo(data.name, data.about, data.avatar, data._id);
-    mainUserId = data._id;
+    userId = data._id;
     cardList.renderItems(initialCards);
   })
   .catch((err) => {
@@ -183,17 +183,14 @@ const popupEditProfile = new PopupWithForm(popupEdit, () => {
 });
 popupEditProfile.setEventListeners();
 
-let currentUserId;
 //Попап добавления карточки 
 const popupAddCard = new PopupWithForm(popupAdd, () => {
-
-
   api.addNewCard(titleInput.value, linkInput.value).then((data) => {
-    const cardElement = createCard(data.name, data.link, data._id, data.owner._id);
+    userId = data.owner._id;
+    const cardElement = createCard(data, userId);
     cardList.addItem(cardElement);
-    currentUserId = data.owner._id;
+  
   })
-
   popupAddCard.close();
   validatorAdd.toggleButtonState();//блокирую кнопку Submit при повторном открытии формы
 
@@ -207,10 +204,11 @@ popupAddCard.setEventListeners();
 const popupConfirm = new PopupConfirm(popupDelete);
 popupConfirm.setEventListeners();
 
+/*
 api.deleteCard().then((data) => {
   //удаление карточки
   newCard.remove();
-})
+})*/
 
 
 //Открыл попап аватар

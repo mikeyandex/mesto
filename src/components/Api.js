@@ -71,8 +71,8 @@ export default class Api {
   }
 
   //Ставлю лайк
-  like(id) {
-    return fetch(`${this._fetchUrl}/cards/${id}/likes`, {
+  setlike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers
     })
@@ -81,7 +81,7 @@ export default class Api {
 
   //Убираю лайк
   removeLike(id) {
-    return fetch(`${this._fetchUrl}/cards/${id}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers
     })
