@@ -41,7 +41,7 @@ export default class Api {
       },
       body: JSON.stringify({ name, about })
     })
-    .then(this._getJson)
+    .then(this._getJson(data))
   }
 
   //Добавляю новую карточку
@@ -59,7 +59,6 @@ export default class Api {
       
     })
     .then(this._getJson)
-
     }
 
   //Удаление карточки

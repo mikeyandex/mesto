@@ -1,8 +1,9 @@
+
 import FormValidator from '../components/FormValidator.js';
 import Card from '../components/Сard.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
-
+import PopupConfirm from '../components/PopupConfirm.js';
 
 import UserInfo from '../components/UserInfo.js';
 import Section from '../components/Section.js';
@@ -60,9 +61,6 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const avatar = document.querySelector('.profile__avatar');
 
-let currentUserId;
-
-
 //Формы
 const profileForm = document.forms['profile-form'];
 const cardForm = document.forms['card-form'];
@@ -101,7 +99,8 @@ const api = new Api({
 
 //Функция создает карточку перед выводом на экран 
 function createCard(name, link) {
-  const newCard = new Card(name, link, currentUserId, counterOfLikes, '.clone-element', handleCardClick, toDelete, setLike, removeLike);
+  const newCard = new Card(name, link, newCard, currentUserId, counterOfLikes, '.clone-element', handleCardClick, toDelete, setLike, removeLike
+  );
   const cardElement = newCard.createCard();
   return cardElement
 };
@@ -112,7 +111,7 @@ const handleCardClick = (title, link) => {
 }
 
 //Удаление карточки
-const toDelete = () => {
+const toDelete = (id) => {
   popupConfirm.open();
   popupConfirm.setEventListeners();
   api.deleteCard(id).then((data) => {
@@ -145,28 +144,20 @@ const removeLike = (id) => {
     )
 };
 
-
-//Загрузка информации о пользователе с сервера
-api.getUserInfo().then((data) => {
-  userProfile.setUserInfo(data.name, data.about, data.avatar, data._id)
-  currentUserId = data._id;
-  console.log(currentUserId)
-})
-  .catch((error) => {
-    console.log(error);
+let mainUserId;// Мой Id
+// Загрузка карточек и данных о пользователе
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([initialCards, data]) => {
+    userProfile.setUserInfo(data.name, data.about, data.avatar, data._id);
+    mainUserId = data._id;
+    cardList.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
   });
-  console.log(currentUserId)
 
 
 
-//Загружаю карточки с сервера.
-api.getInitialCards().then((items) => {
-
-  console.log(items.length)//items[5].likes.length
-
-  cardList.renderItems(items)
-  //.catch((error) => {console.log(error);})
-})
 
 
 //Экземпляр класса UserInfo
@@ -192,14 +183,15 @@ const popupEditProfile = new PopupWithForm(popupEdit, () => {
 });
 popupEditProfile.setEventListeners();
 
-
+let currentUserId;
 //Попап добавления карточки 
 const popupAddCard = new PopupWithForm(popupAdd, () => {
 
-  const cardElement = createCard(titleInput.value, linkInput.value);
+
   api.addNewCard(titleInput.value, linkInput.value).then((data) => {
+    const cardElement = createCard(data.name, data.link, data._id, data.owner._id);
     cardList.addItem(cardElement);
-    console.log(data)
+    currentUserId = data.owner._id;
   })
 
   popupAddCard.close();
@@ -209,8 +201,16 @@ const popupAddCard = new PopupWithForm(popupAdd, () => {
 popupAddCard.setEventListeners();
 
 
+
+
 //Создаю попап для согласия на удаление
-const popupConfirm = new PopupWithForm(popupDelete);
+const popupConfirm = new PopupConfirm(popupDelete);
+popupConfirm.setEventListeners();
+
+api.deleteCard().then((data) => {
+  //удаление карточки
+  newCard.remove();
+})
 
 
 //Открыл попап аватар

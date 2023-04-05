@@ -1,7 +1,12 @@
+
+
+
 export default class Card {
-  constructor(titleInput, linkInput, currentUserId, counterOfLikes, cardSelector, handleCardClick, toDelete, setLike, removeLike) {
-    this._name = titleInput;
-    this._link = linkInput;
+  constructor(name, link, newCard, currentUserId, counterOfLikes, cardSelector, handleCardClick, toDelete, setLike, removeLike) {
+    this._name = name;
+    this._link = link;
+    this._newCard = newCard;
+
     this._counterOfLikes = counterOfLikes;
     /*
     this._ownerCard = data.owner._id === currentUserId;*/
@@ -16,7 +21,7 @@ export default class Card {
     this._setLike = setLike;
     this._removeLike = removeLike;
   }
-
+debugger;
   // Получаю шаблон карточки
   _getTemplate() {
     this._card = document
@@ -35,18 +40,26 @@ export default class Card {
     this._likeCounter = this._element.querySelector('.element__counter');
     //this._likeCounter.textContent = this._likes.length;
 
+    /*
+    if(this._currentUserId === cardId) {
+      this._deleteButton = this._element.querySelector('.element__trash');
+    }
+    */
+    this._deleteButton = this._element.querySelector('.element__trash');
     this._deleteButton = this._element.querySelector('.element__trash');
 
     this._cardImage.src = this._link;
     this._cardImage.alt = this._name;
     this._element.querySelector('.element__image-title').textContent = this._name;
     this._setEventListeners();
+
+    
     return this._element;
   };
 
   like() {
     this._likeButton.classList.toggle('element__like_added');//Переключение лайков
-    //this._likeCounter.textContent = 
+    console.log('like')
   };
 
   _setEventListeners() {
@@ -64,8 +77,14 @@ export default class Card {
 
     //Слушатель лайка
     this._likeButton.addEventListener(`click`, () => {
-      this._like();
-    });
+      this.like();
+      if (this._likeButton.classList.contains('element__like_added')) {
+        this._setLike(this._cardId);
+      } else {
+        this._removeLike(this._cardId);
+    }
+  })
+
   }
   _toDelete() {
     this._element.remove();
